@@ -1,0 +1,2 @@
+sample_getopt_long: Makefile_sample_getopt_long
+	make -f Makefile_sample_getopt_long

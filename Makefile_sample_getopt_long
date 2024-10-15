@@ -1,0 +1,10 @@
+binaries=sample_getopt_long
+
+sample_getopt: sample_getopt_long.o
+	gcc sample_getopt_long.o -o sample_getopt_long
+
+sample_getopt_long.o: sample_getopt_long.c
+	gcc -c sample_getopt_long.c -o sample_getopt_long.o
+
+clean:
+	rm -f $(binaries) *.o

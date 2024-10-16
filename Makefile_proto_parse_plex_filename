@@ -1,0 +1,5 @@
+proto_parse_plex_filename: proto_parse_plex_filename.o
+	gcc proto_parse_plex_filename.o -o proto_parse_plex_filename
+
+proto_parse_plex_filename.o: proto_parse_plex_filename.c
+	gcc -c proto_parse_plex_filename.c -o proto_parse_plex_filename.o

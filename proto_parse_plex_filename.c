@@ -23,9 +23,8 @@ char github_website[]="<https://github.com/lhensley/toybox>";
 
 /* Options */
 /* These will vary according to the options defined. */
-static int verbose_flag=0; // A static int variable remains in memory while the program is running.
-static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0;
-char *arg_c,*arg_d,*arg_f;
+# static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0;
+# char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)
 {
@@ -37,19 +36,9 @@ int main (int argc, char **argv)
           see https://linux.die.net/man/3/getopt_long */
       static struct option long_options[] =
         {
-          /* These options set a flag. */
-          {"verbose", no_argument,       &verbose_flag, 1},
-          {"brief",   no_argument,       &verbose_flag, 0},
           /* These options don’t set a flag.
              We distinguish them by their indices. */
           {"version", no_argument,       0, 'V'},
-          {"add",     no_argument,       0, 'a'},
-          {"append",  no_argument,       0, 'b'},
-          // We can add multiple long option synonym versions as desired, like these:
-          {"create",  required_argument, 0, 'c'},
-          {"make",    required_argument, 0, 'c'},
-          {"delete",  required_argument, 0, 'd'},
-          {"file",    required_argument, 0, 'f'},
           {"help",    no_argument,       0, 'h'},
           {0, 0, 0, 0}
         };
@@ -67,7 +56,7 @@ int main (int argc, char **argv)
 
       switch (c)
         {
-        case 0: // Not currently sure what this does. Yet.
+        case 0:
           /* If this option set a flag, do nothing else now. */
           if (long_options[option_index].flag != 0)
             break;
@@ -80,34 +69,6 @@ int main (int argc, char **argv)
         case 'V':
           // printf ("option -f with value `%s'\n", optarg);
           opt_V=1;
-          break;
-
-        case 'a':
-          // puts ("option -a\n");
-          opt_a=1;
-          break;
-
-        case 'b':
-          // puts ("option -b\n");
-          opt_b=1;
-          break;
-
-        case 'c':
-          // printf ("option -c with value `%s'\n", optarg);
-          opt_c=1;
-          arg_c=optarg;
-          break;
-
-        case 'd':
-          // printf ("option -d with value `%s'\n", optarg);
-          opt_d=1;
-          arg_d=optarg;
-          break;
-
-        case 'f':
-          // printf ("option -f with value `%s'\n", optarg);
-          opt_f=1;
-          arg_f=optarg;
           break;
 
         case 'h':

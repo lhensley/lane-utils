@@ -40,6 +40,7 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 #include <stdlib.h> // Standard Libraries
 #include <string.h>
 #include <unistd.h> // For access()
+#include "lane_filesystem.h" // For verifying file reability
 
 /* Set my version info */
 char copyright_year[]="1988-2024";
@@ -139,10 +140,14 @@ int main (int argc, char **argv)
     exit(1);
     }
 
-  if (access(argv[(argc-optind)], F_OK) == -1) {
-    fprintf(stderr,"ERROR: %s does not exist.\n",basename(argv[(argc-optind)]));
+  if (!fs_isfile(argv[(argc-optind)])) {
+    fprintf(stderr,"ERROR: %s does not exist.\n",argv[(argc-optind)]);
     exit(1);
     }
+  // if (access(argv[(argc-optind)], F_OK) == -1) {
+  //   fprintf(stderr,"ERROR: %s does not exist.\n",basename(argv[(argc-optind)]));
+  //   exit(1);
+  //   }
 
   if (access(argv[(argc-optind)], R_OK) == -1) {
     fprintf(stderr,"ERROR: %s is not readable.\n",basename(argv[(argc-optind)]));

@@ -1,5 +1,10 @@
-proto_parse_plex_filename: proto_parse_plex_filename.o
-	gcc proto_parse_plex_filename.o -o proto_parse_plex_filename
+object_files = proto_parse_plex_filename.o lane_filesystem.o
+
+proto_parse_plex_filename: $(object_files)
+	gcc $(object_files) -o proto_parse_plex_filename
 
 proto_parse_plex_filename.o: proto_parse_plex_filename.c
 	gcc -c proto_parse_plex_filename.c -o proto_parse_plex_filename.o
+
+lane_filesystem.o: lane_filesystem.c
+	gcc -c lane_filesystem.c -o lane_filesystem.o

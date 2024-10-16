@@ -33,106 +33,12 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdio.h>  // Standard I/O
 #include <stdlib.h> // Standard Libraries
 #include <unistd.h> // For access()
+#include "lane_filesystem.h"
 
-int main (int argc, char **argv)
-{
-  int c;
-
-  while (1)
-    {
-      /* For more on this structure definition and use, 
-          see https://linux.die.net/man/3/getopt_long */
-      static struct option long_options[] =
-        {
-          /* These options don’t set a flag.
-             We distinguish them by their indices. */
-          {"version", no_argument,       0, 'V'},
-          {"help",    no_argument,       0, 'h'},
-          {0, 0, 0, 0}
-        };
-      /* getopt_long stores the option index here. */
-      int option_index = 0;
-
-      /* one colon (:) means previous letter takes an argument. */
-      /* two colons (::) means optional argument. */
-      c = getopt_long (argc, argv, "Vh",
-                       long_options, &option_index);
-
-      /* Detect the end of the options. */
-      if (c == -1)
-        break;
-
-      switch (c)
-        {
-        case 0: // Not currently sure what this does. Yet.
-          /* If this option set a flag, do nothing else now. */
-          if (long_options[option_index].flag != 0)
-            break;
-          printf ("option %s", long_options[option_index].name);
-          if (optarg)
-            printf (" with arg %s", optarg);
-          printf ("\n");
-          break;
-
-        case 'V':
-          opt_V=1;
-          break;
-
-        case 'h':
-          opt_h=1;
-          break;
-
-        case '?':
-          exit (1);
-
-        default:
-          abort ();
-        }
+int fs_isfile (char *pathname) {
+    return (!access(pathname, F_OK));
     }
 
-// ###########################################################################
-// ###  ERROR CHECKING
-// ###########################################################################
-
-  if (opt_h || opt_V) {
-    fprintf(stderr,"%s %s\n",basename(argv[0]),program_version);
-    fprintf(stderr,"Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
-    fprintf(stderr,"%s %s\n",github_website,personal_website);
-    if (opt_h) {
-      fprintf(stderr,"\nUsage: %s [OPTIONS] [path/]filename\n\n",basename(argv[0]));
-      fprintf(stderr,"Parses and displays Plex filenames.\n\n");
-      fprintf(stderr,"Options\n");
-      fprintf(stderr,"--version, -V              prints the version + other info and exits\n");
-      fprintf(stderr,"--help, -h (*)             shows this help (* -h is help only on its own)\n");      
-      }
-    exit(1);
+int fs_isreadable (char *pathname) {
+    return (!access(pathname, R_OK));
     }
-
-  if ((argc-optind)<1) {
-    fprintf(stderr,"ERROR: No argument speficied.\n");
-    exit(1);
-    }
-
-  if ((argc-optind)>1) {
-    fprintf(stderr,"ERROR: Too many arguments.\n");
-    exit(1);
-    }
-
-  if (access(argv[(argc-optind)], F_OK) == -1) {
-    fprintf(stderr,"ERROR: %s does not exist.\n",basename(argv[(argc-optind)]));
-    exit(1);
-    }
-
-  if (access(argv[(argc-optind)], R_OK) == -1) {
-    fprintf(stderr,"ERROR: %s is not readable.\n",basename(argv[(argc-optind)]));
-    exit(1);
-    }
-
-// ###########################################################################
-// ###  FROM HERE ON, PUT THE GUTS OF THE PROGRAM IN.
-// ###########################################################################
-
-  // NEED TO DETERMINE WHETHER INPUT FILE EXISTS
-  printf("Input file: %s\n",basename(argv[1]));
-  exit (0);
-}

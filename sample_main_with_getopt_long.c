@@ -14,7 +14,7 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 #include <string.h>
 
 /* Set my version info */
-char copyright_year[]="2024";
+char copyright_year[]="2023-2024";
 char program_author[]="Lane Hensley";
 char program_version[]="0.1.0";
 char mit_license_link[]="<https://opensource.org/license/mit>";
@@ -23,9 +23,9 @@ char github_website[]="<https://github.com/lhensley/toybox>";
 
 /* Options */
 /* These will vary according to the options defined. */
-static int verbose_flag; // A static int variable remains in memory while the program is running.
-static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0, opt_o=0;
-char *arg_c,*arg_d,*arg_f,*arg_o;
+static int verbose_flag=0; // A static int variable remains in memory while the program is running.
+static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0;
+char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)
 {
@@ -45,11 +45,12 @@ int main (int argc, char **argv)
           {"version", no_argument,       0, 'V'},
           {"add",     no_argument,       0, 'a'},
           {"append",  no_argument,       0, 'b'},
+          // We can add multiple long option synonym versions as desired, like these:
           {"create",  required_argument, 0, 'c'},
+          {"make",    required_argument, 0, 'c'},
           {"delete",  required_argument, 0, 'd'},
           {"file",    required_argument, 0, 'f'},
           {"help",    no_argument,       0, 'h'},
-          {"help2",   no_argument,       0, 'h'}, // repeating 'h' makes 'help2' a synonym for 'help'
           {0, 0, 0, 0}
         };
       /* getopt_long stores the option index here. */
@@ -124,24 +125,31 @@ int main (int argc, char **argv)
         }
     }
 
+/* ###########################################################################
+###  EDIT THIS PERSION FOR HELP AND VERSION
+########################################################################### */
+
   if (opt_h || opt_V) {
     printf("%s %s\n",basename(argv[0]),program_version);
     printf("Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
-    printf("%s %s\n\n",github_website,personal_website);
+    printf("%s %s\n",github_website,personal_website);
     if (opt_h) {
-      printf("Usage: sample_main_with_getopt_long [OPTIONS] ARGS\n\n");
+      printf("\nUsage: sample_main_with_getopt_long [OPTIONS] ARGS\n\n");
       printf("This is a demonstration program and template for 'real' programs.\n");
       printf("It parses and displays flags, options, arguments, and errors you specify.\n\n");
       printf("Options\n");
       printf("--brief                    notes but ignores requests for brevity\n");
       printf("--verbose                  notes but ignores requests for verbosity\n");
-      printf("--add, -a                  notes but ignores option a with no argument\n");
-      printf("--append, -b               notes but ignores option b with no argument\n");
-      printf("--create=argument, -c arg  notes but ignores option c with argument\n");
-      printf("--delete=argument, -d arg  notes but ignores option d with argument\n");
-      printf("--file=argument, -f arg    notes but ignores option f with argument\n");
+      printf("--add, -a                  notes but ignores option with no argument\n");
+      printf("--append, -b               notes but ignores option with no argument\n");
+      printf("--create=argument, --make=argument, -c argument\n");
+      printf("                           notes but ignores option with argument\n");
+      printf("--delete=argument, -d argument\n");
+      printf("                           notes but ignores option with argument\n");
+      printf("--file=argument, -f argument\n");
+      printf("                           notes but ignores option with argument\n");
       printf("--version, -V              prints the version + other info and exits\n");
-      printf("--help, --help2, -h (*)    shows this help (* -h is help only on its own)\n");      
+      printf("--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }
     exit(0);
     }
@@ -173,13 +181,12 @@ int main (int argc, char **argv)
     }
 
   /* Print any remaining command line arguments (not options). */
-  if (optind < argc)
-    {
+  if (optind < argc) {
       printf ("non-option ARGV-elements: ");
       while (optind < argc)
         printf ("%s ", argv[optind++]);
       putchar ('\n');
-    }
+      }
 
   exit (0);
 }

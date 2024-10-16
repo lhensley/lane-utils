@@ -14,7 +14,7 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 #include <string.h>
 
 /* Set my version info */
-char copyright_year[]="2023-2024";
+char copyright_year[]="1988-2024";
 char program_author[]="Lane Hensley";
 char program_version[]="0.1.0";
 char mit_license_link[]="<https://opensource.org/license/mit>";
@@ -24,7 +24,8 @@ char github_website[]="<https://github.com/lhensley/toybox>";
 /* Options */
 /* These will vary according to the options defined. */
 static int verbose_flag=0; // A static int variable remains in memory while the program is running.
-static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0;
+static int opt_V=0, opt_h=0;
+static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
 char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)

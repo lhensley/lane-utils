@@ -14,7 +14,7 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 #include <string.h>
 
 /* Set my version info */
-char copyright_year[]="2023-2024";
+char copyright_year[]="1988-2024";
 char program_author[]="Lane Hensley";
 char program_version[]="0.1.0";
 char mit_license_link[]="<https://opensource.org/license/mit>";
@@ -23,7 +23,8 @@ char github_website[]="<https://github.com/lhensley/toybox>";
 
 /* Options */
 /* These will vary according to the options defined. */
-# static int opt_V=0, opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0, opt_h=0;
+static int opt_V=0, opt_h=0;
+# static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
 # char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)
@@ -47,7 +48,7 @@ int main (int argc, char **argv)
 
       /* one colon (:) means previous letter takes an argument. */
       /* two colons (::) means optional argument. */
-      c = getopt_long (argc, argv, "Vabc:d:f:ho::",
+      c = getopt_long (argc, argv, "Vh",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -56,7 +57,7 @@ int main (int argc, char **argv)
 
       switch (c)
         {
-        case 0:
+        case 0: // Not currently sure what this does. Yet.
           /* If this option set a flag, do nothing else now. */
           if (long_options[option_index].flag != 0)
             break;
@@ -90,25 +91,24 @@ int main (int argc, char **argv)
 ###  EDIT THIS PERSION FOR HELP AND VERSION
 ########################################################################### */
 
+  if (argc<1) {
+    fprintf(stderr,"No filename speficied.\n");
+    opt_V=1;
+    }
+
+  if (argc>1) {
+    fprintf(stderr,"Too many arguments.\n");
+    opt_V=1;
+    }
+
   if (opt_h || opt_V) {
     printf("%s %s\n",basename(argv[0]),program_version);
     printf("Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
     printf("%s %s\n",github_website,personal_website);
     if (opt_h) {
-      printf("\nUsage: %s [OPTIONS] ARGS\n\n",basename(argv[0]));
-      printf("This is a demonstration program and template for 'real' programs.\n");
-      printf("It parses and displays flags, options, arguments, and errors you specify.\n\n");
+      printf("\nUsage: %s [OPTIONS] pathname|filename\n\n",basename(argv[0]));
+      printf("Parses and displays Plex filenames.\n\n");
       printf("Options\n");
-      printf("--brief                    notes but ignores requests for brevity\n");
-      printf("--verbose                  notes but ignores requests for verbosity\n");
-      printf("--add, -a                  notes but ignores option with no argument\n");
-      printf("--append, -b               notes but ignores option with no argument\n");
-      printf("--create=argument, --make=argument, -c argument\n");
-      printf("                           notes but ignores option with argument\n");
-      printf("--delete=argument, -d argument\n");
-      printf("                           notes but ignores option with argument\n");
-      printf("--file=argument, -f argument\n");
-      printf("                           notes but ignores option with argument\n");
       printf("--version, -V              prints the version + other info and exits\n");
       printf("--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }
@@ -119,36 +119,8 @@ int main (int argc, char **argv)
 ###  FROM HERE ON, PUT THE GUTS OF THE PROGRAM IN.
 ########################################################################### */
 
-  /* Instead of reporting ‘--verbose’
-     and ‘--brief’ as they are encountered,
-     we report the final status resulting from them. */
-  if (verbose_flag)
-    printf ("verbose flag is set\n");
-  if (opt_a)
-    printf ("option -a is set\n");
-  if (opt_b)
-    printf ("option -b is set\n");
-  if (opt_c) {
-    printf ("option -c is set\n");
-    printf (" argument is %s\n",arg_c);
-    }
-  if (opt_d) {
-    printf ("option -d is set\n");
-    printf (" argument is %s\n",arg_d);
-    }
-  if (opt_f) {
-    printf ("option -f is set\n");
-    printf (" argument is %s\n",arg_f);
-    }
-
-  /* Print any remaining command line arguments (not options). */
-  if (optind < argc) {
-      printf ("non-option ARGV-elements: ");
-      while (optind < argc)
-        printf ("%s ", argv[optind++]);
-      putchar ('\n');
-      }
-
+  // NEED TO DETERMINE WHETHER INPUT FILE EXISTS
+  printf("Input file: %s\n",basename(argv[0]));
   exit (0);
 }
 

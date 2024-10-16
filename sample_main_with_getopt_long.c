@@ -131,26 +131,26 @@ int main (int argc, char **argv)
 ########################################################################### */
 
   if (opt_h || opt_V) {
-    printf("%s %s\n",basename(argv[0]),program_version);
-    printf("Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
-    printf("%s %s\n",github_website,personal_website);
+    fprintf(stderr,"%s %s\n",basename(argv[0]),program_version);
+    fprintf(stderr,"Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
+    fprintf(stderr,"%s %s\n",github_website,personal_website);
     if (opt_h) {
-      printf("\nUsage: %s [OPTIONS] ARGS\n\n",basename(argv[0]));
-      printf("This is a demonstration program and template for 'real' programs.\n");
-      printf("It parses and displays flags, options, arguments, and errors you specify.\n\n");
-      printf("Options\n");
-      printf("--brief                    notes but ignores requests for brevity\n");
-      printf("--verbose                  notes but ignores requests for verbosity\n");
-      printf("--add, -a                  notes but ignores option with no argument\n");
-      printf("--append, -b               notes but ignores option with no argument\n");
-      printf("--create=argument, --make=argument, -c argument\n");
-      printf("                           notes but ignores option with argument\n");
-      printf("--delete=argument, -d argument\n");
-      printf("                           notes but ignores option with argument\n");
-      printf("--file=argument, -f argument\n");
-      printf("                           notes but ignores option with argument\n");
-      printf("--version, -V              prints the version + other info and exits\n");
-      printf("--help, -h (*)             shows this help (* -h is help only on its own)\n");      
+      fprintf(stderr,"\nUsage: %s [OPTIONS] ARGS\n\n",basename(argv[0]));
+      fprintf(stderr,"This is a demonstration program and template for 'real' programs.\n");
+      fprintf(stderr,"It parses and displays flags, options, arguments, and errors you specify.\n\n");
+      fprintf(stderr,"Options\n");
+      fprintf(stderr,"--brief                    notes but ignores requests for brevity\n");
+      fprintf(stderr,"--verbose                  notes but ignores requests for verbosity\n");
+      fprintf(stderr,"--add, -a                  notes but ignores option with no argument\n");
+      fprintf(stderr,"--append, -b               notes but ignores option with no argument\n");
+      fprintf(stderr,"--create=argument, --make=argument, -c argument\n");
+      fprintf(stderr,"                           notes but ignores option with argument\n");
+      fprintf(stderr,"--delete=argument, -d argument\n");
+      fprintf(stderr,"                           notes but ignores option with argument\n");
+      fprintf(stderr,"--file=argument, -f argument\n");
+      fprintf(stderr,"                           notes but ignores option with argument\n");
+      fprintf(stderr,"--version, -V              prints the version + other info and exits\n");
+      fprintf(stderr,"--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }
     exit(0);
     }

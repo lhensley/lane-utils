@@ -24,8 +24,8 @@ char github_website[]="<https://github.com/lhensley/toybox>";
 /* Options */
 /* These will vary according to the options defined. */
 static int opt_V=0, opt_h=0;
-# static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
-# char *arg_c,*arg_d,*arg_f;
+// static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
+// char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)
 {
@@ -91,26 +91,26 @@ int main (int argc, char **argv)
 ###  EDIT THIS PERSION FOR HELP AND VERSION
 ########################################################################### */
 
-  if (argc<1) {
-    fprintf(stderr,"No filename speficied.\n");
-    opt_V=1;
+  if (argc<2) { // The command itself counts.
+    fprintf(stderr,"%s: No argument speficied.\n\n",basename(argv[0]));
+    opt_h=1;
     }
 
-  if (argc>1) {
-    fprintf(stderr,"Too many arguments.\n");
-    opt_V=1;
+  if (argc>2) { // The command itself counts.
+    fprintf(stderr,"%s: Too many arguments.\n\n",basename(argv[0]));
+    opt_h=1;
     }
 
   if (opt_h || opt_V) {
-    printf("%s %s\n",basename(argv[0]),program_version);
-    printf("Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
-    printf("%s %s\n",github_website,personal_website);
+    fprintf(stderr,"%s %s\n",basename(argv[0]),program_version);
+    fprintf(stderr,"Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
+    fprintf(stderr,"%s %s\n",github_website,personal_website);
     if (opt_h) {
-      printf("\nUsage: %s [OPTIONS] pathname|filename\n\n",basename(argv[0]));
-      printf("Parses and displays Plex filenames.\n\n");
-      printf("Options\n");
-      printf("--version, -V              prints the version + other info and exits\n");
-      printf("--help, -h (*)             shows this help (* -h is help only on its own)\n");      
+      fprintf(stderr,"\nUsage: %s [OPTIONS] [path/]filename\n\n",basename(argv[0]));
+      fprintf(stderr,"Parses and displays Plex filenames.\n\n");
+      fprintf(stderr,"Options\n");
+      fprintf(stderr,"--version, -V              prints the version + other info and exits\n");
+      fprintf(stderr,"--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }
     exit(0);
     }
@@ -120,7 +120,7 @@ int main (int argc, char **argv)
 ########################################################################### */
 
   // NEED TO DETERMINE WHETHER INPUT FILE EXISTS
-  printf("Input file: %s\n",basename(argv[0]));
+  printf("Input file: %s\n",basename(argv[1]));
   exit (0);
 }
 

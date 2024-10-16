@@ -1,6 +1,6 @@
 /*
 
-proto_parse_plex_filename.c 
+lane_filesystem.c 
 Copyright (C) 1988-2024 by Lane Hensley <https://lanehensley.org>
 Repository: <https://github.com/lhensley/toybox>
 This file is subject to the MIT License <https://opensource.org/license/mit>
@@ -27,33 +27,12 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Adapted from: https://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Option-Example.html
-Help: https://linux.die.net/man/3/getopt_long
-Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-it
-
 */
 
-#define _GNU_SOURCE
-#include <getopt.h> // For getopt_long
 #include <libgen.h> // For basename()
 #include <stdio.h>  // Standard I/O
 #include <stdlib.h> // Standard Libraries
-#include <string.h>
 #include <unistd.h> // For access()
-
-/* Set my version info */
-char copyright_year[]="1988-2024";
-char program_author[]="Lane Hensley";
-char program_version[]="0.1.0";
-char mit_license_link[]="<https://opensource.org/license/mit>";
-char personal_website[]="<https://lanehensley.org>";
-char github_website[]="<https://github.com/lhensley/toybox>";
-
-/* Options */
-/* These will vary according to the options defined. */
-static int opt_V=0, opt_h=0;
-// static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
-// char *arg_c,*arg_d,*arg_f;
 
 int main (int argc, char **argv)
 {

@@ -1,5 +1,32 @@
 /*
 
+sample_main_with_getopt_long.c 
+Copyright (C) 1988-2024 by Lane Hensley <https://lanehensley.org>
+Repository: <https://github.com/lhensley/toybox>
+This file is subject to the MIT License <https://opensource.org/license/mit>
+
+Copyright 1988-2024 Lane Hensley
+
+Permission is hereby granted, free of charge, 
+to any person obtaining a copy of this software 
+and associated documentation files (the “Software”), 
+to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, 
+publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included 
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 Adapted from: https://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Option-Example.html
 Help: https://linux.die.net/man/3/getopt_long
 Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-it
@@ -126,9 +153,9 @@ int main (int argc, char **argv)
         }
     }
 
-/* ###########################################################################
-###  EDIT THIS PERSION FOR HELP AND VERSION
-########################################################################### */
+// ###########################################################################
+// ###  ERROR CHECKING
+// ###########################################################################
 
   if (opt_h || opt_V) {
     fprintf(stderr,"%s %s\n",basename(argv[0]),program_version);
@@ -155,9 +182,9 @@ int main (int argc, char **argv)
     exit(0);
     }
 
-/* ###########################################################################
-###  FROM HERE ON, PUT THE GUTS OF THE PROGRAM IN.
-########################################################################### */
+// ###########################################################################
+// ###  FROM HERE ON, PUT THE GUTS OF THE PROGRAM IN.
+// ###########################################################################
 
   /* Instead of reporting ‘--verbose’
      and ‘--brief’ as they are encountered,

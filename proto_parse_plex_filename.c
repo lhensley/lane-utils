@@ -141,16 +141,12 @@ int main (int argc, char **argv)
     }
 
   if (!fs_isfile(argv[(argc-optind)])) {
-    fprintf(stderr,"ERROR: %s does not exist.\n",argv[(argc-optind)]);
+    fprintf(stderr,"ERROR: %s is not a file.\n",argv[(argc-optind)]);
     exit(1);
     }
-  // if (access(argv[(argc-optind)], F_OK) == -1) {
-  //   fprintf(stderr,"ERROR: %s does not exist.\n",basename(argv[(argc-optind)]));
-  //   exit(1);
-  //   }
 
-  if (access(argv[(argc-optind)], R_OK) == -1) {
-    fprintf(stderr,"ERROR: %s is not readable.\n",basename(argv[(argc-optind)]));
+  if (!fs_isreadable(argv[(argc-optind)])) {
+    fprintf(stderr,"ERROR: %s is not readable.\n",argv[(argc-optind)]);
     exit(1);
     }
 

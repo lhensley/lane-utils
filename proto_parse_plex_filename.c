@@ -36,9 +36,11 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 #define _GNU_SOURCE       // For getopt_long
 #include <getopt.h>       // For getopt_long
 #include <libgen.h>       // For basename()
+#include <limits.h>       // Defining max length for pathname
+// #include <sys/syslimits.h>
 #include <stdio.h>        // Standard I/O
 #include <stdlib.h>       // Standard Library
-// #include <string.h>    // Don't recall why this was there!
+#include <string.h>       // For string testing and adapting
 #include <unistd.h>       // For access()
 #include "lane_stdlib.h"  // Lane Standard Library
 #include "lane_fs.h"      // Lane File System Library
@@ -143,6 +145,14 @@ int main (int argc, char **argv)
     exit(1);
     }
 
+  if (strlen(argv[(argc-optind)])>=PATH_MAX) {
+    fprintf(stderr,"ERROR: Pathname is %lu characters, and the max allowed is %d.\n",
+                strlen(argv[(argc-optind)]),PATH_MAX-1);
+    exit(1);
+    }
+
+  /*
+  
   if (!fs_isfile(argv[(argc-optind)])) {
     fprintf(stderr,"ERROR: %s is not a file.\n",argv[(argc-optind)]);
     exit(1);
@@ -153,11 +163,14 @@ int main (int argc, char **argv)
     exit(1);
     }
 
+  */
+
 // ###########################################################################
 // ###  FROM HERE ON, PUT THE GUTS OF THE PROGRAM IN.
 // ###########################################################################
 
   // NEED TO DETERMINE WHETHER INPUT FILE EXISTS
-  printf("Input file: %s\n",basename(argv[1]));
+  printf("Input file: %s\n",basename(argv[(argc-optind)]));
+
   exit (0);
 }

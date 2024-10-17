@@ -1,5 +1,11 @@
-sample_main_with_getopt_long: sample_main_with_getopt_long.o
-	gcc sample_main_with_getopt_long.o -o sample_main_with_getopt_long
+object_files = sample_main_with_getopt_long.o lane_stdlib.o
+
+sample_main_with_getopt_long: $(object_files)
+	gcc $(object_files) -o sample_main_with_getopt_long
 
 sample_main_with_getopt_long.o: sample_main_with_getopt_long.c
 	gcc -c sample_main_with_getopt_long.c -o sample_main_with_getopt_long.o
+
+lane_stdlib.o: lane_stdlib.c
+	gcc -c lane_stdlib.c -o lane_stdlib.o
+

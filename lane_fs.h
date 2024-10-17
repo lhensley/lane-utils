@@ -32,7 +32,12 @@
 #ifndef LANE_FS_H
 #define LANE_FS_H
 
+/* Returns 0 if the pathname is not a file.
+    Returns non-zero value if it is. */
 int fs_isfile (char *pathname);
+
+/* Returns 0 if the pathname is readable.
+    Returns non-zero value if it is. */
 int fs_isreadable (char *pathname);
 
 #endif /* LANE_FS_H */

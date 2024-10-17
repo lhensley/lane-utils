@@ -33,27 +33,25 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 
 */
 
-#define _GNU_SOURCE
+#define _GNU_SOURCE       // For getopt_long
 #include <getopt.h>       // For getopt_long
 #include <libgen.h>       // For basename()
 #include <stdio.h>        // Standard I/O
 #include <stdlib.h>       // Standard Library
-#include <string.h>
+// #include <string.h>    // Don't recall why this was there!
 #include <unistd.h>       // For access()
 #include "lane_stdlib.h"  // Lane Standard Library
 #include "lane_fs.h"      // Lane File System Library
-
-/* Options */
-/* These will vary according to the options defined. */
-static int opt_L=0, opt_V=0, opt_h=0;
-// static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
-// char *arg_c,*arg_d,*arg_f;
 
 // GLOBAL variables
 char *program_version="0.1.0";
 
 int main (int argc, char **argv)
 {
+  /* Options */
+  /* These will vary according to the options defined. */
+  static int opt_L=0, opt_V=0, opt_h=0;
+
   int c;
 
   while (1)
@@ -128,8 +126,8 @@ int main (int argc, char **argv)
       fprintf(stderr,"\nUsage: %s [OPTIONS] [path/]filename\n\n",basename(argv[0]));
       fprintf(stderr,"Parses and displays Plex filenames.\n\n");
       fprintf(stderr,"Options\n");
-      fprintf(stderr,"--license, -L              prints the MIT license\n");
-      fprintf(stderr,"--version, -V              prints the version + other info and exits\n");
+      fprintf(stderr,"--license, -L              shows the MIT license\n");
+      fprintf(stderr,"--version, -V              shows the version + other info and exits\n");
       fprintf(stderr,"--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }
     exit(1);

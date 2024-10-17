@@ -32,7 +32,18 @@
 #ifndef LANE_STDLIB_H
 #define LANE_STDLIB_H
 
+/* Displays the program header, followed by the license.
+    The argument should ALWAYS be argv[0]. 
+    Unless it's been passed to a function, 
+    that's ONLY defined within main().
+    Writes to stderr. */
 void display_license (char *this_program);
+
+/* Displays the program header.
+    The argument should ALWAYS be argv[0]. 
+    Unless it's been passed to a function, 
+    that's ONLY defined within main().
+    Writes to stderr. */
 void display_program_info_header (char *this_program);
 
 #endif /* LANE_STDLIB_H */

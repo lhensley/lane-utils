@@ -34,27 +34,23 @@ Help: https://stackoverflow.com/questions/7489093/getopt-long-proper-way-to-use-
 */
 
 #define _GNU_SOURCE
-#include <getopt.h> // For getopt_long
-#include <libgen.h> // For basename()
-#include <stdio.h>  // Standard I/O
-#include <stdlib.h> // Standard Libraries
+#include <getopt.h>       // For getopt_long
+#include <libgen.h>       // For basename()
+#include <stdio.h>        // Standard I/O
+#include <stdlib.h>       // Standard Library
 #include <string.h>
-#include <unistd.h> // For access()
-#include "lane_filesystem.h" // For verifying file reability
-
-/* Set my version info */
-char copyright_year[]="1988-2024";
-char program_author[]="Lane Hensley";
-char program_version[]="0.1.0";
-char mit_license_link[]="<https://opensource.org/license/mit>";
-char personal_website[]="<https://lanehensley.org>";
-char github_website[]="<https://github.com/lhensley/toybox>";
+#include <unistd.h>       // For access()
+#include "lane_stdlib.h"  // Lane Standard Library
+#include "lane_fs.h"      // Lane File System Library
 
 /* Options */
 /* These will vary according to the options defined. */
-static int opt_V=0, opt_h=0;
+static int opt_L=0, opt_V=0, opt_h=0;
 // static int opt_a=0, opt_b=0, opt_c=0, opt_d=0, opt_f=0;
 // char *arg_c,*arg_d,*arg_f;
+
+// GLOBAL variables
+char *program_version="0.1.0";
 
 int main (int argc, char **argv)
 {
@@ -68,6 +64,7 @@ int main (int argc, char **argv)
         {
           /* These options don’t set a flag.
              We distinguish them by their indices. */
+          {"license", no_argument,       0, 'L'},
           {"version", no_argument,       0, 'V'},
           {"help",    no_argument,       0, 'h'},
           {0, 0, 0, 0}
@@ -77,7 +74,7 @@ int main (int argc, char **argv)
 
       /* one colon (:) means previous letter takes an argument. */
       /* two colons (::) means optional argument. */
-      c = getopt_long (argc, argv, "Vh",
+      c = getopt_long (argc, argv, "LVh",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -94,6 +91,10 @@ int main (int argc, char **argv)
           if (optarg)
             printf (" with arg %s", optarg);
           printf ("\n");
+          break;
+
+        case 'L':
+          opt_L=1;
           break;
 
         case 'V':
@@ -116,14 +117,18 @@ int main (int argc, char **argv)
 // ###  ERROR CHECKING
 // ###########################################################################
 
+  if (opt_L) {
+    display_license(argv[0]);
+    exit(1);
+    }
+
   if (opt_h || opt_V) {
-    fprintf(stderr,"%s %s\n",basename(argv[0]),program_version);
-    fprintf(stderr,"Copyright (C) %s by %s %s\n",copyright_year,program_author,mit_license_link);
-    fprintf(stderr,"%s %s\n",github_website,personal_website);
+    display_program_info_header (argv[0]);
     if (opt_h) {
       fprintf(stderr,"\nUsage: %s [OPTIONS] [path/]filename\n\n",basename(argv[0]));
       fprintf(stderr,"Parses and displays Plex filenames.\n\n");
       fprintf(stderr,"Options\n");
+      fprintf(stderr,"--license, -L              prints the MIT license\n");
       fprintf(stderr,"--version, -V              prints the version + other info and exits\n");
       fprintf(stderr,"--help, -h (*)             shows this help (* -h is help only on its own)\n");      
       }

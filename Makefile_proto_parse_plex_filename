@@ -1,4 +1,4 @@
-object_files = proto_parse_plex_filename.o lane_filesystem.o
+object_files = proto_parse_plex_filename.o lane_stdlib.o lane_fs.o
 
 proto_parse_plex_filename: $(object_files)
 	gcc $(object_files) -o proto_parse_plex_filename
@@ -6,5 +6,8 @@ proto_parse_plex_filename: $(object_files)
 proto_parse_plex_filename.o: proto_parse_plex_filename.c
 	gcc -c proto_parse_plex_filename.c -o proto_parse_plex_filename.o
 
-lane_filesystem.o: lane_filesystem.c
-	gcc -c lane_filesystem.c -o lane_filesystem.o
+lane_stdlib.o: lane_stdlib.c
+	gcc -c lane_stdlib.c -o lane_stdlib.o
+
+lane_fs.o: lane_fs.c
+	gcc -c lane_fs.c -o lane_fs.o
